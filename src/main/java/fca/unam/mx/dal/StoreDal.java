@@ -3,6 +3,7 @@ package fca.unam.mx.dal;
 
 import fca.unam.mx.dao.StoreDao;
 import fca.unam.mx.dto.ProductDto;
+import fca.unam.mx.dto.ClientDto;
 import fca.unam.mx.dto.ResponseDto;
 import fca.unam.mx.services.JdbiService;
 import org.jboss.logging.Logger;
@@ -45,5 +46,16 @@ public class StoreDal {
 
         return responseDto;
     }
+
+    public ResponseDto<List<ClientDto>> getClients() {
+
+        ResponseDto responseDto = new ResponseDto<List<ProductDto>>();
+        responseDto.setSuccess(true);
+        Jdbi jdbi = jdbiService.getInstance();
+        var products = jdbi.withExtension(StoreDao.class, dao -> dao.getClients());
+        responseDto.setData(products);
+        return responseDto;
+    }
+
 
 }
